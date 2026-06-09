@@ -6,7 +6,7 @@ const Mail = (props: any) => (
     <path d="M21 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 17.25V6.75" />
   </svg>
 );
-
+//
 const Lock = (props: any) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" {...props}>
     <rect x="5" y="11" width="14" height="10" rx="2" />
