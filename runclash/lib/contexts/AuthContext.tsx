@@ -63,3 +63,4 @@ export const useAuth = () => {
     }
     return context;
 };
+//error handling and loading states can be added to the context as needed.
