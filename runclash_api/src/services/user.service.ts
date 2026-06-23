@@ -76,8 +76,11 @@ export const loginUser = async (payload: unknown) => {
     tokenOptions
   );
 
-  return {
+return {
     token,
     user: createSafeUser(user),
   };
 };
+
+// Note: profile update + password update handled in auth.controller via direct UserModel updates
+
