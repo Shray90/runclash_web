@@ -1,6 +1,31 @@
 export default function Home() {
   return (
     <div className="min-h-screen bg-[#f5f5f5]">
+
+      {/* HEADER */}
+      <header className="sticky top-0 z-50 border-b border-gray-200 bg-white/95 backdrop-blur">
+  <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+    {/* Logo */}
+    <div className="flex items-center gap-3">
+      <h1 className="text-3xl font-black tracking-tight">
+        <span className="text-red-700">Run</span>
+        <span className="text-gray-900">Clash</span>
+      </h1>
+    </div>
+
+
+    {/* Right Side */}
+    <div className="flex items-center gap-4">
+      <a
+        href="/register"
+        className="rounded-full bg-red-700 px-6 py-2 text-sm font-bold text-white shadow hover:bg-red-800"
+      >
+        JOIN CLASH
+      </a>
+    </div>
+  </div>
+</header>
+
       {/* HERO */}
       <section className="mx-auto max-w-7xl px-6 py-16">
         <div className="grid items-center gap-12 lg:grid-cols-2">
