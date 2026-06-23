@@ -38,7 +38,7 @@ export default function Home() {
             <h1 className="text-5xl font-black leading-tight text-gray-900 lg:text-7xl">
               Run. <span className="text-red-700">Capture.</span>
               <br />
-              Conquer.
+Conquer.
             </h1>
 
             <p className="mt-6 max-w-xl text-lg text-gray-600">
@@ -62,7 +62,8 @@ export default function Home() {
               </a>
             </div>
 
-            <div className="mt-12 flex gap-10">
+              <div className="mt-12 flex gap-10">
+
               <div>
                 <h3 className="text-4xl font-black">1.2M+</h3>
                 <p className="text-xs font-semibold uppercase text-gray-500">
@@ -79,10 +80,11 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Right Image */}
+              {/* Right Image */}
           <div>
             <img
               src="/images/runner-city.jpg"
+
               alt="Runner"
               className="h-[650px] w-full rounded-3xl object-cover shadow-2xl"
             />
@@ -128,7 +130,7 @@ export default function Home() {
             </h3>
 
             <p className="text-red-100">
-              Every mile contributes to your squad's control over local zones.
+your squad&apos;s control
             </p>
 
             <div className="mt-32 border-t border-red-700 pt-6">
