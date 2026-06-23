@@ -17,6 +17,9 @@ export const registerSchema = z
       .trim()
       .toLowerCase()
       .email("Please enter a valid email address"),
+    fitnessGoal: z.enum(["loose", "stay", "gain"], {
+      error: "Select a fitness goal",
+    }),
     role: z.enum(["freelancer", "client"], {
       error: "Choose whether you want to find work or hire talent",
     }),
@@ -24,7 +27,10 @@ export const registerSchema = z
     confirmPassword: z.string().min(1, "Please confirm your password"),
     acceptedTerms: z
       .boolean()
-      .refine((value) => value, "Please accept the terms before creating an account"),
+      .refine(
+        (value) => value,
+        "Please accept the terms before creating an account"
+      ),
   })
   .refine((data) => data.password === data.confirmPassword, {
     path: ["confirmPassword"],

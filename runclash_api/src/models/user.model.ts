@@ -28,17 +28,24 @@ const userSchema = new Schema<IUserDocument>(
       enum: ["freelancer", "client"],
       required: true,
     },
+    fitnessGoal: {
+      type: String,
+      enum: ["loose", "stay", "gain"],
+      required: true,
+    },
     password: {
       type: String,
       required: true,
       minlength: 8,
       select: false,
     },
+
   },
   {
     timestamps: true,
   }
 );
+
 
 export const UserModel =
   mongoose.models.User || mongoose.model<IUserDocument>("User", userSchema);

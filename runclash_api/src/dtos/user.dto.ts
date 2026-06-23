@@ -17,11 +17,15 @@ export const registerUserDto = z.object({
     .trim()
     .toLowerCase()
     .email("Please enter a valid email address"),
+  fitnessGoal: z.enum(["loose", "stay", "gain"], {
+    error: "Select a fitness goal",
+  }),
   role: z.enum(["freelancer", "client"], {
     error: "Choose whether you want to find work or hire talent",
   }),
   password: passwordSchema,
 });
+
 
 export const loginUserDto = z.object({
   email: z

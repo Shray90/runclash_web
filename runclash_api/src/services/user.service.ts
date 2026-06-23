@@ -10,12 +10,16 @@ const createSafeUser = (user: {
   fullName: string;
   email: string;
   role: string;
+  heightCm?: number;
+  weightKg?: number;
+  fitnessGoal?: string;
 }) => ({
   id: String(user._id),
   fullName: user.fullName,
   email: user.email,
   role: user.role,
 });
+
 
 export const registerUser = async (payload: unknown) => {
   const validated = registerUserDto.parse(payload);
@@ -33,7 +37,9 @@ export const registerUser = async (payload: unknown) => {
     password: hashedPassword,
   });
 
-  return createSafeUser(user);
+  return {
+    user: createSafeUser(user),
+  };
 };
 
 export const loginUser = async (payload: unknown) => {

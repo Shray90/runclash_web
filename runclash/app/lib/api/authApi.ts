@@ -67,9 +67,12 @@ export const registerUserApi = async (values: RegisterFormValues) => {
     fullName: values.fullName,
     email: values.email,
     role: values.role,
+    fitnessGoal: values.fitnessGoal,
+
     password: values.password,
   });
 };
+
 
 export const loginUserApi = async (values: LoginFormValues) => {
   return request<LoginResponse>("/auth/login", {
