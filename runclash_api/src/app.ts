@@ -21,6 +21,7 @@ app.get("/", (_req, res) => {
 });
 
 app.use("/api/auth", authRoutes);
+app.use("/api/v1/auth", authRoutes);
 
 app.use(errorMiddleware);
 
