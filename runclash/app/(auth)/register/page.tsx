@@ -71,12 +71,11 @@ export default function RegisterPage() {
           </Link>
         </div>
 
-        <h1 className="mb-1 text-3xl font-extrabold uppercase tracking-tight text-gray-900">
-          Join Runclash
-        </h1>
-        <p className="mb-8 text-sm text-gray-500">
-          Start earning on your own terms today.
+        <p className="mb-8 text-center text-sm text-gray-500">
+          Start earning control of districts with every run.
         </p>
+
+
 
         <form className="space-y-5" onSubmit={handleSubmit} noValidate>
           <div>

@@ -1,6 +1,3 @@
-import Image from "next/image";
-import Link from "next/link";
-
 export default function AuthLayout({
   children,
 }: {
@@ -8,20 +5,17 @@ export default function AuthLayout({
 }) {
   return (
     <div className="min-h-screen bg-white">
-      {/* Top-left logo */}
-      <div className="absolute top-6 left-6 flex items-center gap-2">
-        <Image
-          src="/assets/logo.svg"
-          alt="Runclash logo"
-          width={48}
-          height={48}
-        />
-        <span className="text-xl font-bold text-gray-900 tracking-tight">
-          Runclash
-        </span>
-      </div>
+      <header className="w-full bg-white/70 backdrop-blur-md">
+        <div className="mx-auto flex max-w-7xl items-center justify-center px-6 py-6">
+          <h1 className="text-4xl font-black tracking-tight drop-shadow-sm">
+            <span className="text-[#B3261E]">Run</span>
+            <span className="text-gray-900">Clash</span>
+          </h1>
+        </div>
+      </header>
 
       {children}
     </div>
   );
 }
+
