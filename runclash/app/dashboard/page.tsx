@@ -19,9 +19,9 @@ export default function DashboardPage() {
   const pathname = usePathname();
   const [user, setUser] = useState<AuthUser | null>(null);
 
-  useEffect(() => {
-    setUser(getSavedUser());
-  }, []);
+
+
+
 
   const navItems: NavItem[] = useMemo(
     () => [
