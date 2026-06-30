@@ -1,6 +1,6 @@
 "use client"
 import { createContext, useContext, useState, ReactNode, useEffect } from "react";
-import { clearAuthCookies, getTokenCookie, getUserData } from "../cookies";
+import { clearAuthCookies, getTokenCookie, getUserData } from "@/lib/cookies-client";
 import { useRouter } from "next/navigation";
 
 interface AuthContextProps {
