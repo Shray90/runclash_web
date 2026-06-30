@@ -1,37 +1,79 @@
-"use server"; // server side api call
-import { register, login } from "@/lib/api/auth";
+"use server";
+import { login, register, whoami, updateProfile, updatePassword } from "@/lib/api/auth";
 import { LoginFormData, RegisterFormData } from "@/app/(auth)/_components/schema";
-import { setTokenCookie, storeUserData } from "@/lib/cookies";
+import { clearAuthCookies, setTokenCookie, storeUserData } from "@/lib/cookies.server";
+import { redirect, RedirectType } from "next/navigation";
+import { revalidatePath } from "next/cache";
 
 export const handleRegisterUser = async (data: RegisterFormData) => {
-    try{
-        // how to handle data from component and how to send to component
+    try {
         const result = await register(data);
-        if(result.success){
-            return { success: true, message: result.message, data: result.data }; 
-        }else{
-            return { success: false, message: result.message || 'Registration failed' };    
+        if (result.success) {
+            return { success: true, message: result.message, data: result.data };
+        } else {
+            return { success: false, message: result.message || "Registration failed" };
         }
-    }catch (error: Error | any){
-        return { success: false, message: error?.message || 'Registration failed' };    
+    } catch (error: Error | any) {
+        return { success: false, message: error?.message || "Registration failed" };
     }
-}
+};
+
 export const handleLoginUser = async (data: LoginFormData) => {
-    try{
-        // how to handle data from component and how to send to component
+    try {
         const result = await login(data);
-        // set cookie
         const user = result.data.user;
         const token = result.data.token;
         await setTokenCookie(token);
         await storeUserData(user);
 
-        if(result.success){
-            return { success: true, message: result.message, data: result.data }; 
-        }else{
-            return { success: false, message: result.message || 'Login failed' };    
+        if (result.success) {
+            return { success: true, message: result.message, data: result.data };
+        } else {
+            return { success: false, message: result.message || "Login failed" };
         }
-    }catch (error: Error | any){
-        return { success: false, message: error?.message || 'Login failed' };    
+    } catch (error: Error | any) {
+        return { success: false, message: error?.message || "Login failed" };
     }
-}
+};
+
+export const handleUserDetails = async () => {
+    try {
+        const result = await whoami();
+        if (result.success) {
+            return { success: true, message: result.message, data: result.data };
+        }
+        return { success: false, message: result.message || "Failed to fetch user details" };
+    } catch (error: Error | any) {
+        return { success: false, message: error?.message || "Failed to fetch user details" };
+    }
+};
+
+export const handleUpdateProfile = async (formData: FormData) => {
+    try {
+        const result = await updateProfile(formData);
+        if (result.success) {
+            revalidatePath("/dashboard/profile");
+            return { success: true, message: result.message, data: result.data };
+        }
+        return { success: false, message: result.message || "Failed to update profile" };
+    } catch (error: Error | any) {
+        return { success: false, message: error?.message || "Failed to update profile" };
+    }
+};
+
+export const handleUpdatePassword = async (data: any) => {
+    try {
+        const result = await updatePassword(data);
+        if (result.success) {
+            return { success: true, message: result.message, data: result.data };
+        }
+        return { success: false, message: result.message || "Failed to update password" };
+    } catch (error: Error | any) {
+        return { success: false, message: error?.message || "Failed to update password" };
+    }
+};
+
+export const handleLogout = async () => {
+    await clearAuthCookies();
+    redirect("/login", RedirectType.replace);
+};
