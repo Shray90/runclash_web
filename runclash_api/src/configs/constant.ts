@@ -1,5 +1,4 @@
-import dotenv from "dotenv";
-dotenv.config(); // implement .env file
+import * as process from "process";
 
 // Add fallback value from env for stability
 export const PORT: number = Number(process.env.PORT) || 8089; // default port is 8089
