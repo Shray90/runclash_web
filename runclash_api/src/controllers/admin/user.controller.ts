@@ -45,10 +45,11 @@ export class AdminUserController {
 
     async getUserById(req: Request, res: Response) {
         try {
-            const userId = req.params.id;
-            if (!userId) {
+            const rawId = req.params.id;
+            if (!rawId) {
                 return ApiResponseHelper.error(res, "User id is required", 400);
             }
+            const userId = Array.isArray(rawId) ? rawId[0] : rawId;
             const user = await userService.getUserById(userId);
             return ApiResponseHelper.success(res, user, "User retrieved successfully");
         } catch (error: any) {
@@ -62,7 +63,8 @@ export class AdminUserController {
 
     async updateUser(req: Request, res: Response) {
         try {
-            const userId = req.params.id;
+            const rawId = req.params.id;
+            const userId = Array.isArray(rawId) ? rawId[0] : rawId;
             // merge file upload (if any) into body as profileImage
             const bodyWithFile = { ...req.body } as any;
             if ((req as any).file) {
@@ -87,7 +89,8 @@ export class AdminUserController {
 
     async updatePassword(req: Request, res: Response) {
         try {
-            const userId = req.params.id;
+            const rawId = req.params.id;
+            const userId = Array.isArray(rawId) ? rawId[0] : rawId;
             const parsed = UpdatePasswordDTO.safeParse(req.body);
             if (!parsed.success) {
                 return ApiResponseHelper.error(res, z.prettifyError(parsed.error), 400);
@@ -111,7 +114,8 @@ export class AdminUserController {
 
     async deleteUser(req: Request, res: Response) {
         try {
-            const userId = req.params.id;
+            const rawId = req.params.id;
+            const userId = Array.isArray(rawId) ? rawId[0] : rawId;
             const deleted = await userService.deleteUser(userId);
             if (!deleted) {
                 return ApiResponseHelper.error(res, "User not found", 404);
