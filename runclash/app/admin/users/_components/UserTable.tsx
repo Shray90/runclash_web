@@ -27,6 +27,7 @@ export default function UserTable({ data, pagination, search }: { data: any[]; p
     router.push(`/admin/users?${q.toString()}`);
   };
 
+  // OPTIMIZE: debounce search input to reduce API calls
   const onSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const value = new FormData(e.currentTarget).get("search") as string;
@@ -53,20 +54,26 @@ export default function UserTable({ data, pagination, search }: { data: any[]; p
           <h2 className="text-3xl font-bold text-on-dark">Users</h2>
           <p className="text-sm text-muted">{total} total</p>
         </div>
-        <Link href="/admin/users/create" className="flex h-10 items-center bg-on-dark px-4 text-xs font-bold uppercase tracking-[1.5px] text-canvas transition-opacity hover:opacity-90">
-          New user
+        <Link href="/admin/users/create" className="flex h-10 items-center bg-on-dark px-4 text-xs font-bold uppercase tracking-[1.5px] text-canvas transition-all hover:opacity-90 hover:shadow-md">
+          + New user
         </Link>
       </div>
 
       <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <form onSubmit={onSearch} className="flex w-full max-w-sm gap-2">
-          <input name="search" defaultValue={search} placeholder="Search users..." className="h-10 w-full border bg-surface-card px-3 text-sm" />
-          <button className="h-10 border px-4 text-xs font-bold uppercase">Search</button>
+          <input
+            name="search"
+            defaultValue={search}
+            placeholder="Search users..."
+            className="h-10 w-full border bg-surface-card px-3 text-sm transition focus:outline-none focus:ring-2 focus:ring-red-400 focus:border-red-400"
+          />
+          <button className="h-10 border px-4 text-xs font-bold uppercase transition hover:bg-gray-50">Search</button>
         </form>
 
+        {/* REVIEW: consider making rows per page sticky to user session */}
         <label className="flex items-center gap-2 text-xs uppercase tracking-[1.5px] text-muted">
           Rows
-          <select value={limit} onChange={(e) => setQuery({ limit: e.target.value, page: 1 })} className="h-10 border bg-surface-card px-2 text-sm">
+          <select value={limit} onChange={(e) => setQuery({ limit: e.target.value, page: 1 })} className="h-10 border bg-surface-card px-2 text-sm transition focus:outline-none focus:ring-2 focus:ring-red-400">
             {[5, 10, 20, 50].map((n) => (
               <option key={n} value={n}>
                 {n}
@@ -76,58 +83,58 @@ export default function UserTable({ data, pagination, search }: { data: any[]; p
         </label>
       </div>
 
-      <div className="overflow-x-auto border">
+      <div className="overflow-x-auto border rounded-lg">
         <table className="w-full text-left text-sm">
-          <thead className="border-b bg-surface-soft text-xs uppercase tracking-[1px] text-muted">
+          <thead className="border-b bg-gray-50 text-xs uppercase tracking-[1px] text-gray-500">
             <tr>
-              <th className="px-4 py-3 font-medium">Name</th>
-              <th className="px-4 py-3 font-medium">Email</th>
-              <th className="px-4 py-3 font-medium">Username</th>
-              <th className="px-4 py-3 font-medium">Role</th>
-              <th className="px-4 py-3 text-right font-medium">Actions</th>
+              <th className="px-4 py-3 font-semibold">Name</th>
+              <th className="px-4 py-3 font-semibold">Email</th>
+              <th className="px-4 py-3 font-semibold">Username</th>
+              <th className="px-4 py-3 font-semibold">Role</th>
+              <th className="px-4 py-3 text-right font-semibold">Actions</th>
             </tr>
           </thead>
           <tbody>
             {data?.length ? (
               data.map((u) => (
-                <tr key={u._id} className="border-b last:border-0 hover:bg-surface-soft">
-                  <td className="px-4 py-3 text-on-dark">{u.firstName} {u.lastName}</td>
-                  <td className="px-4 py-3 text-body">{u.email}</td>
-                  <td className="px-4 py-3 text-body">{u.username}</td>
+                <tr key={u._id} className="border-b last:border-0 transition hover:bg-red-50">
+                  <td className="px-4 py-3 font-medium text-gray-900">{u.firstName} {u.lastName}</td>
+                  <td className="px-4 py-3 text-gray-600">{u.email}</td>
+                  <td className="px-4 py-3 text-gray-600">{u.username}</td>
                   <td className="px-4 py-3">
-                    <span className={`inline-block rounded px-2 py-0.5 text-xs uppercase tracking-[1px] ${u.role==="admin"?"bg-electric-blue/20 text-bmw-blue":"bg-surface-elevated text-muted"}`}>{u.role}</span>
+                    <span className={`inline-block rounded-full px-2.5 py-0.5 text-xs font-semibold uppercase tracking-[1px] ${u.role==="admin"?"bg-red-100 text-red-700":"bg-gray-100 text-gray-600"}`}>{u.role}</span>
                   </td>
                   <td className="px-4 py-3">
-                    <div className="flex justify-end gap-3 text-xs font-medium uppercase tracking-[1px]">
-                      <Link href={`/admin/users/${u._id}`} className="text-muted hover:text-on-dark">View</Link>
-                      <Link href={`/admin/users/${u._id}/edit`} className="text-muted hover:text-on-dark">Edit</Link>
-                      <button onClick={() => setTarget(u)} className="text-muted hover:text-m-red">Delete</button>
+                    <div className="flex justify-end gap-3 text-xs font-semibold uppercase tracking-[1px]">
+                      <Link href={`/admin/users/${u._id}`} className="text-gray-400 transition hover:text-gray-700">View</Link>
+                      <Link href={`/admin/users/${u._id}/edit`} className="text-gray-400 transition hover:text-gray-700">Edit</Link>
+                      <button onClick={() => setTarget(u)} className="text-gray-400 transition hover:text-red-600">Delete</button>
                     </div>
                   </td>
                 </tr>
               ))
             ) : (
               <tr>
-                <td colSpan={5} className="px-4 py-12 text-center text-muted">No users found</td>
+                <td colSpan={5} className="px-4 py-12 text-center text-gray-400">No users found</td>
               </tr>
             )}
           </tbody>
         </table>
       </div>
 
-      <div className="mt-4 flex items-center justify-between text-sm text-muted">
+      <div className="mt-4 flex items-center justify-between text-sm text-gray-500">
         <span>Page {page} of {totalPages}</span>
         <div className="flex gap-2">
-          <button disabled={page<=1} onClick={()=>setQuery({page: page-1})} className="h-9 border px-3 text-xs uppercase">Prev</button>
-          <button disabled={page>=totalPages} onClick={()=>setQuery({page: page+1})} className="h-9 border px-3 text-xs uppercase">Next</button>
+          <button disabled={page<=1} onClick={()=>setQuery({page: page-1})} className="h-9 border px-3 text-xs font-semibold uppercase transition hover:bg-gray-50 disabled:opacity-40">Prev</button>
+          <button disabled={page>=totalPages} onClick={()=>setQuery({page: page+1})} className="h-9 border px-3 text-xs font-semibold uppercase transition hover:bg-gray-50 disabled:opacity-40">Next</button>
         </div>
       </div>
 
       <Modal open={!!target} onClose={()=>setTarget(null)} title="Delete user">
-        <p className="mb-6 text-sm">Delete <span className="font-bold">{target?.firstName} {target?.lastName}</span>? This cannot be undone.</p>
+        <p className="mb-6 text-sm text-gray-600">Delete <span className="font-bold text-gray-900">{target?.firstName} {target?.lastName}</span>? This cannot be undone.</p>
         <div className="flex justify-end gap-3">
-          <button onClick={()=>setTarget(null)} className="h-10 border px-4">Cancel</button>
-          <button onClick={onDelete} disabled={isPending} className="h-10 bg-m-red px-4 text-white">{isPending?"Deleting...":"Delete"}</button>
+          <button onClick={()=>setTarget(null)} className="h-10 border border-gray-300 px-4 text-sm font-semibold transition hover:bg-gray-50">Cancel</button>
+          <button onClick={onDelete} disabled={isPending} className="h-10 bg-red-600 px-4 text-sm font-semibold text-white transition hover:bg-red-700">{isPending?"Deleting...":"Delete"}</button>
         </div>
       </Modal>
     </div>
