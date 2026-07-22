@@ -20,6 +20,7 @@ export default function UserFormEdit({ id }: { id: string }) {
     formState: { errors, isSubmitting },
   } = useForm<RegisterFormData>({ resolver: zodResolver(registerSchema) });
 
+  // TODO: add loading skeleton while user data is being fetched
   useEffect(() => {
     (async () => {
       const res = await handleGetUserById(id);
@@ -56,48 +57,86 @@ export default function UserFormEdit({ id }: { id: string }) {
   return (
     <div className="w-full max-w-2xl">
       <div className="mb-6">
-        <Link href="/admin/users" className="text-xs uppercase tracking-[1.5px] text-muted hover:text-on-dark">
-          Back
+        <Link href="/admin/users" className="text-xs font-semibold uppercase tracking-[1.5px] text-gray-400 transition hover:text-gray-700">
+          ← Back
         </Link>
       </div>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-        {error && <div className="rounded-xl border border-[#f8d7da] bg-[#f8d7da] px-4 py-3 text-sm text-[#842029]">{error}</div>}
+        {error && (
+          <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+            {error}
+          </div>
+        )}
         <div>
-          <label className="mb-2 block text-sm font-bold uppercase tracking-[1.5px] text-body">Email</label>
-          <input type="email" {...register("email")} placeholder="you@example.com" className="h-12 w-full border bg-surface-card px-4" />
-          {errors.email && <p className="mt-2 text-sm text-[#842029]">{errors.email.message}</p>}
+          <label className="mb-2 block text-sm font-bold uppercase tracking-[1.5px] text-gray-600">Email</label>
+          <input
+            type="email"
+            {...register("email")}
+            placeholder="you@example.com"
+            className="h-12 w-full border border-gray-200 bg-white px-4 text-sm transition focus:outline-none focus:ring-2 focus:ring-red-400 focus:border-red-400"
+          />
+          {errors.email && <p className="mt-2 text-sm text-red-600">{errors.email.message}</p>}
         </div>
         <div className="grid gap-5 sm:grid-cols-2">
           <div>
-            <label className="mb-2 block text-sm font-bold uppercase tracking-[1.5px] text-body">First Name</label>
-            <input type="text" {...register("firstName")} placeholder="Jane" className="h-12 w-full border bg-surface-card px-4" />
-            {errors.firstName && <p className="mt-2 text-sm text-[#842029]">{errors.firstName.message}</p>}
+            <label className="mb-2 block text-sm font-bold uppercase tracking-[1.5px] text-gray-600">First Name</label>
+            <input
+              type="text"
+              {...register("firstName")}
+              placeholder="Jane"
+              className="h-12 w-full border border-gray-200 bg-white px-4 text-sm transition focus:outline-none focus:ring-2 focus:ring-red-400 focus:border-red-400"
+            />
+            {errors.firstName && <p className="mt-2 text-sm text-red-600">{errors.firstName.message}</p>}
           </div>
           <div>
-            <label className="mb-2 block text-sm font-bold uppercase tracking-[1.5px] text-body">Last Name</label>
-            <input type="text" {...register("lastName")} placeholder="Doe" className="h-12 w-full border bg-surface-card px-4" />
-            {errors.lastName && <p className="mt-2 text-sm text-[#842029]">{errors.lastName.message}</p>}
+            <label className="mb-2 block text-sm font-bold uppercase tracking-[1.5px] text-gray-600">Last Name</label>
+            <input
+              type="text"
+              {...register("lastName")}
+              placeholder="Doe"
+              className="h-12 w-full border border-gray-200 bg-white px-4 text-sm transition focus:outline-none focus:ring-2 focus:ring-red-400 focus:border-red-400"
+            />
+            {errors.lastName && <p className="mt-2 text-sm text-red-600">{errors.lastName.message}</p>}
           </div>
         </div>
         <div>
-          <label className="mb-2 block text-sm font-bold uppercase tracking-[1.5px] text-body">Username</label>
-          <input type="text" {...register("username")} placeholder="janedoe" className="h-12 w-full border bg-surface-card px-4" />
-          {errors.username && <p className="mt-2 text-sm text-[#842029]">{errors.username.message}</p>}
+          <label className="mb-2 block text-sm font-bold uppercase tracking-[1.5px] text-gray-600">Username</label>
+          <input
+            type="text"
+            {...register("username")}
+            placeholder="janedoe"
+            className="h-12 w-full border border-gray-200 bg-white px-4 text-sm transition focus:outline-none focus:ring-2 focus:ring-red-400 focus:border-red-400"
+          />
+          {errors.username && <p className="mt-2 text-sm text-red-600">{errors.username.message}</p>}
         </div>
         <div className="grid gap-5 sm:grid-cols-2">
           <div>
-            <label className="mb-2 block text-sm font-bold uppercase tracking-[1.5px] text-body">Password</label>
-            <input type="password" {...register("password")} placeholder="••••••••" className="h-12 w-full border bg-surface-card px-4" />
-            {errors.password && <p className="mt-2 text-sm text-[#842029]">{errors.password.message}</p>}
+            <label className="mb-2 block text-sm font-bold uppercase tracking-[1.5px] text-gray-600">Password</label>
+            <input
+              type="password"
+              {...register("password")}
+              placeholder="••••••••"
+              className="h-12 w-full border border-gray-200 bg-white px-4 text-sm transition focus:outline-none focus:ring-2 focus:ring-red-400 focus:border-red-400"
+            />
+            {errors.password && <p className="mt-2 text-sm text-red-600">{errors.password.message}</p>}
           </div>
           <div>
-            <label className="mb-2 block text-sm font-bold uppercase tracking-[1.5px] text-body">Confirm Password</label>
-            <input type="password" {...register("confirmPassword")} placeholder="••••••••" className="h-12 w-full border bg-surface-card px-4" />
-            {errors.confirmPassword && <p className="mt-2 text-sm text-[#842029]">{errors.confirmPassword.message}</p>}
+            <label className="mb-2 block text-sm font-bold uppercase tracking-[1.5px] text-gray-600">Confirm Password</label>
+            <input
+              type="password"
+              {...register("confirmPassword")}
+              placeholder="••••••••"
+              className="h-12 w-full border border-gray-200 bg-white px-4 text-sm transition focus:outline-none focus:ring-2 focus:ring-red-400 focus:border-red-400"
+            />
+            {errors.confirmPassword && <p className="mt-2 text-sm text-red-600">{errors.confirmPassword.message}</p>}
           </div>
         </div>
         <div className="flex justify-end">
-          <button type="submit" disabled={isSubmitting || isPending} className="h-12 rounded bg-on-dark px-6 text-white">
+          <button
+            type="submit"
+            disabled={isSubmitting || isPending}
+            className="h-12 rounded-lg bg-gray-900 px-6 text-sm font-semibold text-white transition hover:bg-gray-800 hover:shadow-md disabled:opacity-50"
+          >
             {isPending ? "Updating..." : "Update user"}
           </button>
         </div>
