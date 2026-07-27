@@ -13,6 +13,9 @@ import {
   BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip,
   ResponsiveContainer, AreaChart, Area,
 } from "recharts";
+import AchievementCelebration from "@/app/_components/AchievementCelebration";
+import ChallengeCelebration from "@/app/_components/ChallengeCelebration";
+import EmptyState from "@/app/_components/EmptyState";
 import { handleLogout } from "@/lib/actions/auth-action";
 
 const navItems = [
@@ -337,7 +340,7 @@ export default function DashboardPage() {
                   ))}
                 </div>
               ) : (
-                <p className="text-center text-sm text-gray-400 py-8">No rankings yet</p>
+                <EmptyState icon="🏆" title="No rankings yet" description="Be the first to appear on the leaderboard." actionLabel="Go for a run" actionHref="/runtracker" />
               )}
             </div>
 
@@ -362,7 +365,7 @@ export default function DashboardPage() {
                   ))}
                 </div>
               ) : (
-                <p className="text-center text-sm text-gray-400 py-8">No runs yet. Start your first run!</p>
+                <EmptyState icon="🏃" title="No runs yet" description="Start your first run and capture your first territory!" actionLabel="Start Running" actionHref="/runtracker" />
               )}
             </div>
 
@@ -387,7 +390,7 @@ export default function DashboardPage() {
                   ))}
                 </div>
               ) : (
-                <p className="text-center text-sm text-gray-400 py-8">No captures yet</p>
+                <EmptyState icon="🏁" title="No captures yet" description="Run through territories to start capturing." actionLabel="Find Territories" actionHref="/territories" />
               )}
             </div>
           </div>
@@ -416,7 +419,7 @@ export default function DashboardPage() {
                   ))}
                 </div>
               ) : (
-                <p className="text-center text-sm text-gray-400 py-8">No territories owned yet. Start capturing!</p>
+                <EmptyState icon="🏁" title="No territories owned yet" description="Start capturing to build your empire." actionLabel="Go to Territories" actionHref="/territories" />
               )}
             </div>
 
@@ -441,12 +444,14 @@ export default function DashboardPage() {
                   ))}
                 </div>
               ) : (
-                <p className="text-center text-sm text-gray-400 py-8">No notifications yet</p>
+                <EmptyState icon="🔔" title="No notifications yet" description="Activity alerts will appear here." actionLabel="Explore" actionHref="/territories" />
               )}
             </div>
           </div>
         </section>
       </div>
+      <AchievementCelebration />
+      <ChallengeCelebration />
     </main>
   );
 }
