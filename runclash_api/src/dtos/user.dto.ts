@@ -27,9 +27,45 @@ export const LoginUserDTO = UserSchema.pick({
 export type LoginUserDTO = z.infer<typeof LoginUserDTO>;
 
 export const UpdateUserDTO = UserSchema.partial().extend({
-    profileImage: z.string().optional()
+    profileImage: z.string().optional(),
+    settings: z.object({
+        darkMode: z.boolean().optional(),
+        locationPermissions: z.boolean().optional(),
+        notificationPreferences: z.object({
+            friendRequests: z.boolean().optional(),
+            territoryUpdates: z.boolean().optional(),
+            challenges: z.boolean().optional(),
+            achievements: z.boolean().optional(),
+            leaderboard: z.boolean().optional(),
+            runs: z.boolean().optional(),
+        }).optional(),
+        privacy: z.object({
+            showProfile: z.boolean().optional(),
+            showStats: z.boolean().optional(),
+            showLocation: z.boolean().optional(),
+        }).optional(),
+    }).optional(),
 });
 export type UpdateUserDTO = z.infer<typeof UpdateUserDTO>;
+
+export const UpdateSettingsDTO = z.object({
+    darkMode: z.boolean().optional(),
+    locationPermissions: z.boolean().optional(),
+    notificationPreferences: z.object({
+        friendRequests: z.boolean().optional(),
+        territoryUpdates: z.boolean().optional(),
+        challenges: z.boolean().optional(),
+        achievements: z.boolean().optional(),
+        leaderboard: z.boolean().optional(),
+        runs: z.boolean().optional(),
+    }).optional(),
+    privacy: z.object({
+        showProfile: z.boolean().optional(),
+        showStats: z.boolean().optional(),
+        showLocation: z.boolean().optional(),
+    }).optional(),
+});
+export type UpdateSettingsDTO = z.infer<typeof UpdateSettingsDTO>;
 
 export const UpdatePasswordDTO = z.object({
     currentPassword: z.string().min(6, "Current password must be at least 6 characters long"),
