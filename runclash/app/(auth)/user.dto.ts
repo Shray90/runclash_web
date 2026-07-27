@@ -15,7 +15,7 @@ export type CreateUserDTO = z.infer<typeof CreateUserDTO>;
 // Login Dto
 // 1. Create new schame
 // export const LoginUserDTO = z.object({
-//     email: z.email(),
+//     email: z.string().email("Invalid email address"),
 //     password: z.string().min(6, "Password must be at least 6 characters long")
 // });
 // 2. Reuse existing schema
