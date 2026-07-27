@@ -12,5 +12,8 @@ router.get("/whoami", authorizedMiddleware, userController.whoami);
 // allow profile image upload via multipart/form-data
 router.put("/update", authorizedMiddleware, upload.single("profileImage"), userController.updateUser);
 router.put("/update-password", authorizedMiddleware, userController.updatePassword);
+router.get("/search", authorizedMiddleware, userController.searchUsers);
+router.put("/settings", authorizedMiddleware, userController.updateSettings);
+router.delete("/account", authorizedMiddleware, userController.deleteAccount);
 
 export default router;
