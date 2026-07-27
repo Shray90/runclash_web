@@ -21,7 +21,6 @@ axiosInstance.interceptors.request.use(async (config) => {
   }
 
   if (token) {
-    // Assign Authorization header without breaking Axios header types
     if (!config.headers) {
       config.headers = { Authorization: `Bearer ${token}` } as any;
     } else {
