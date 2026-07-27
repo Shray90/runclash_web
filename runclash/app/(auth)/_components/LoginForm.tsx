@@ -111,7 +111,7 @@ export default function LoginForm() {
                 <input type="checkbox" className="rounded border-zinc-300" />
                 Remember Me
               </label>
-              <Link href="/forgot-password" className="font-semibold text-[#b22222] hover:underline">Forgot Password?</Link>
+              <span></span>
             </div>
 
             <button
