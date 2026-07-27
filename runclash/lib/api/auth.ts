@@ -49,3 +49,21 @@ export const updatePassword = async (data: any) => {
         throw new Error(error?.response?.data?.message || "Failed to update password");
     }
 };
+
+export const deleteAccount = async () => {
+    try {
+        const response = await axiosInstance.delete(API.AUTH.DELETE_ACCOUNT);
+        return response.data;
+    } catch (error: Error | any) {
+        throw new Error(error?.response?.data?.message || "Failed to delete account");
+    }
+};
+
+export const updateSettings = async (data: any) => {
+    try {
+        const response = await axiosInstance.put(API.AUTH.SETTINGS, data);
+        return response.data;
+    } catch (error: Error | any) {
+        throw new Error(error?.response?.data?.message || "Failed to update settings");
+    }
+};
