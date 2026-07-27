@@ -1,12 +1,5 @@
 // centralized path definitions for API endpoints
 export const API = {
-    AUTH: {
-        REGISTER: "/api/v1/auth/register",
-        LOGIN: "/api/v1/auth/login",
-        WHOAMI: "/api/v1/auth/whoami",
-        UPDATE: "/api/v1/auth/update",
-        UPDATE_PASSWORD: "/api/v1/auth/update-password",
-    },
     ADMIN: {
         USERS: {
             GET_ALL: "/api/v1/admin/users",
@@ -15,6 +8,85 @@ export const API = {
             UPDATE: (id: string) => `/api/v1/admin/users/${id}`,
             UPDATE_PASSWORD: (id: string) => `/api/v1/admin/users/${id}/password`,
             DELETE: (id: string) => `/api/v1/admin/users/${id}`,
-        }
-    }
+        },
+    },
+    RUN: {
+        START: "/api/v1/run/start",
+        CURRENT: "/api/v1/run/current",
+        LOCATION: "/api/v1/run/location",
+        PAUSE: "/api/v1/run/pause",
+        RESUME: "/api/v1/run/resume",
+        FINISH: "/api/v1/run/finish",
+        HISTORY: "/api/v1/run/history",
+        GET_BY_ID: (id: string) => `/api/v1/run/${id}`,
+    },
+    TERRITORIES: {
+        GET_ALL: "/api/v1/territories",
+        GET_BY_ID: (id: string) => `/api/v1/territories/${id}`,
+        CREATE: "/api/v1/territories",
+        UPDATE: (id: string) => `/api/v1/territories/${id}`,
+        DELETE: (id: string) => `/api/v1/territories/${id}`,
+        CHECK: "/api/v1/territories/check",
+        CAPTURE: "/api/v1/territories/capture",
+        MY: "/api/v1/territories/my",
+        NEARBY: "/api/v1/territories/nearby",
+    },
+    LEADERBOARD: {
+        GET_ALL: "/api/v1/leaderboard",
+        RANK: "/api/v1/leaderboard/rank",
+        MINI: "/api/v1/leaderboard/mini",
+    },
+    NOTIFICATIONS: {
+        GET_ALL: "/api/v1/notifications",
+        UNREAD_COUNT: "/api/v1/notifications/unread-count",
+        WEEKLY_SUMMARY: "/api/v1/notifications/weekly-summary",
+        MARK_READ: (id: string) => `/api/v1/notifications/${id}/read`,
+        MARK_ALL_READ: "/api/v1/notifications/read-all",
+        DELETE: (id: string) => `/api/v1/notifications/${id}`,
+    },
+    FRIENDS: {
+        GET_ALL: "/api/v1/friends",
+        REQUESTS: "/api/v1/friends/requests",
+        SENT: "/api/v1/friends/sent",
+        ONLINE: "/api/v1/friends/online",
+        ACTIVITY: "/api/v1/friends/activity",
+        COMPARE: (friendId: string) => `/api/v1/friends/compare/${friendId}`,
+        SEND_REQUEST: "/api/v1/friends/request",
+        RESPOND: "/api/v1/friends/respond",
+        REMOVE: (friendId: string) => `/api/v1/friends/${friendId}`,
+    },
+    CHALLENGES: {
+        GET_ALL: "/api/v1/challenges",
+        GET_BY_ID: (id: string) => `/api/v1/challenges/${id}`,
+        CREATE: "/api/v1/challenges",
+        UPDATE: (id: string) => `/api/v1/challenges/${id}`,
+        DELETE: (id: string) => `/api/v1/challenges/${id}`,
+        JOIN: (id: string) => `/api/v1/challenges/${id}/join`,
+        MY: "/api/v1/challenges/my",
+        MY_HISTORY: "/api/v1/challenges/my/history",
+        GENERATE_DEFAULTS: "/api/v1/challenges/generate-defaults",
+    },
+    ACHIEVEMENTS: {
+        BADGES: "/api/v1/achievements/badges",
+        MY: "/api/v1/achievements/my",
+        MY_BADGES: "/api/v1/achievements/my/badges",
+        CHECK: "/api/v1/achievements/check",
+        CREATE_BADGE: "/api/v1/achievements/badges",
+    },
+    STATS: {
+        DASHBOARD: "/api/v1/stats/dashboard",
+        CHARTS: "/api/v1/stats/charts",
+        ADMIN_ANALYTICS: "/api/v1/stats/admin/analytics",
+    },
+    AUTH: {
+        REGISTER: "/api/v1/auth/register",
+        LOGIN: "/api/v1/auth/login",
+        WHOAMI: "/api/v1/auth/whoami",
+        UPDATE: "/api/v1/auth/update",
+        UPDATE_PASSWORD: "/api/v1/auth/update-password",
+        DELETE_ACCOUNT: "/api/v1/auth/account",
+        SETTINGS: "/api/v1/auth/settings",
+        SEARCH: "/api/v1/auth/search",
+    },
 };
+
