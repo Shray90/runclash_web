@@ -6,7 +6,10 @@ export const UserSchema = z.object({
     email: z.string().email('Invalid email address'),
     username: z.string().min(3, 'Username must be at least 3 characters long'),
     password: z.string().min(6, 'Password must be at least 6 characters long'),
-    role: z.enum(['admin', 'user']).default('user')
+    role: z.enum(['admin', 'user']).default('user'),
+    profileImage: z.string().optional(),
+    bio: z.string().max(500).optional(),
 });
 
 export type UserType = z.infer<typeof UserSchema>;
+
