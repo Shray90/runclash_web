@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { getLeaderboard } from "@/lib/api/leaderboard";
 import { useAuth } from "@/lib/contexts/AuthContext";
 import { useLeaderboardUpdates } from "@/lib/hooks/useSocket";
+import EmptyState from "@/app/_components/EmptyState";
 
 type SortBy = "distance" | "points" | "territories" | "runs" | "level";
 type Period = "daily" | "weekly" | "monthly" | "all";
@@ -244,8 +245,8 @@ export default function GlobalRanksPage() {
                 ))
               ) : (
                 <tr>
-                  <td colSpan={7} className="p-12 text-center text-gray-400 text-sm">
-                    No runners found
+                  <td colSpan={7} className="p-0">
+                    <EmptyState icon="🏆" title="No runners found" description="Be the first to claim a spot on the leaderboard." actionLabel="Start Running" actionHref="/runtracker" />
                   </td>
                 </tr>
               )}
