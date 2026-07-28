@@ -7,13 +7,14 @@ import { useTerritoryUpdates } from "@/lib/hooks/useSocket";
 import { useAuth } from "@/lib/contexts/AuthContext";
 import dynamic from "next/dynamic";
 import EmptyState from "@/app/_components/EmptyState";
+import { MapPinned, Flag, Zap, Coins, X } from "lucide-react";
 
 const TerritoryMap = dynamic(() => import("./_components/TerritoryMap"), {
   ssr: false,
   loading: () => (
     <div className="h-96 rounded-lg bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center">
       <div className="text-center">
-        <div className="text-5xl mb-3">🗺️</div>
+        <MapPinned className="h-12 w-12 text-gray-400 mb-3" />
         <p className="text-gray-400 text-sm font-medium">Loading map...</p>
       </div>
     </div>
@@ -140,7 +141,7 @@ const [showCaptureComplete, setShowCaptureComplete] = useState(false);
       <div className="mx-auto max-w-6xl">
         <div className="mb-6 flex items-center justify-between animate-fade-in-up">
           <div>
-            <h1 className="text-3xl font-extrabold tracking-tight text-gray-950">🗺️ Territories</h1>
+            <h1 className="text-3xl font-extrabold tracking-tight text-gray-950">Territories</h1>
             <p className="mt-2 text-gray-600">Capture territory by running through it. Dominate the map.</p>
           </div>
           <Link href="/dashboard" className="text-sm font-semibold text-red-600 underline-offset-4 hover:underline">
@@ -152,19 +153,19 @@ const [showCaptureComplete, setShowCaptureComplete] = useState(false);
         {showCaptureComplete && lastCaptureResult && (
           <div className="mb-6 animate-fade-in-up rounded-2xl border border-green-300 bg-green-50 p-5">
             <div className="text-center">
-              <p className="text-2xl font-black text-green-800">🎉 Territory Captured!</p>
+              <p className="text-2xl font-black text-green-800">Territory Captured!</p>
               <p className="mt-2 text-green-700 font-semibold">{lastCaptureResult.territory?.name}</p>
               <div className="mt-3 flex items-center justify-center gap-6">
                 <div className="flex items-center gap-2">
-                  <span className="text-lg">⚡</span>
+                  <Zap className="h-5 w-5 text-yellow-500" />
                   <span className="font-bold text-green-800">+{lastCaptureResult.xpRewarded || 100} XP</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="text-lg">🪙</span>
+                  <Coins className="h-5 w-5 text-yellow-600" />
                   <span className="font-bold text-green-800">+{lastCaptureResult.coinRewarded || 50} Coins</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="text-lg">🏆</span>
+                  <Flag className="h-5 w-5 text-red-500" />
                   <span className="font-bold text-green-800">+1 Territory</span>
                 </div>
               </div>
