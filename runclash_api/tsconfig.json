@@ -5,6 +5,10 @@
     "outDir": "dist",
     "esModuleInterop": true,
     "strict": false,
-    "skipLibCheck": true
-  }
+    "skipLibCheck": true,
+    "types": ["jest", "node"],
+    "isolatedModules": true
+  },
+  "include": ["src/**/*", "index.ts", "jest.setup.ts"],
+  "exclude": ["node_modules", "dist", "revision", "scripts"]
 }
