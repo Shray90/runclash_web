@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { getChallenges, getUserChallenges, joinChallenge, getChallengeHistory, generateDefaultChallenges } from "@/lib/api/challenges";
 import ChallengeCelebration from "@/app/_components/ChallengeCelebration";
 import EmptyState from "@/app/_components/EmptyState";
+import { Target, Footprints, MapPin, Flame, Zap, Trophy, Flag, Coins, Clock, Check, AlertCircle } from "lucide-react";
 
 export default function ChallengesPage() {
   const [challenges, setChallenges] = useState<any[]>([]);
@@ -54,10 +55,16 @@ export default function ChallengesPage() {
   };
 
   const getTypeIcon = (type: string) => {
-    const icons: Record<string, string> = {
-      distance: "📏", runs: "🏃", territories: "🏁", streak: "🔥", speed: "⚡", calories: "🔥", marathon: "🏅",
+    const icons: Record<string, React.ReactNode> = {
+      distance: <Footprints className="h-8 w-8 text-red-500" />,
+      runs: <Footprints className="h-8 w-8 text-red-500" />,
+      territories: <MapPin className="h-8 w-8 text-blue-500" />,
+      streak: <Flame className="h-8 w-8 text-orange-500" />,
+      speed: <Zap className="h-8 w-8 text-yellow-500" />,
+      calories: <Flame className="h-8 w-8 text-orange-500" />,
+      marathon: <Trophy className="h-8 w-8 text-yellow-500" />,
     };
-    return icons[type] || "🎯";
+    return icons[type] || <Target className="h-8 w-8 text-red-500" />;
   };
 
   return (
@@ -65,7 +72,7 @@ export default function ChallengesPage() {
       <div className="mx-auto max-w-5xl">
         <div className="mb-6 flex items-center justify-between animate-fade-in-up">
           <div>
-            <h1 className="text-3xl font-extrabold tracking-tight text-gray-950">🎯 Challenges</h1>
+            <h1 className="text-3xl font-extrabold tracking-tight text-gray-950"><Target className="inline-block h-8 w-8 text-red-500 mr-2" />Challenges</h1>
             <p className="mt-2 text-gray-600">Complete challenges, earn rewards, and level up.</p>
           </div>
           <Link href="/dashboard" className="text-sm font-semibold text-red-600 underline-offset-4 hover:underline">Back to dashboard</Link>
@@ -96,8 +103,8 @@ export default function ChallengesPage() {
                   </div>
                   <div className="mt-3 flex items-center justify-between">
                     <div className="flex gap-3 text-xs">
-                      <span className="text-yellow-600">🏆 {challenge.reward?.xp} XP</span>
-                      <span className="text-gray-500">💰 {challenge.reward?.coins} coins</span>
+                      <span className="text-yellow-600"><Trophy className="inline-block h-4 w-4 mr-1" />{challenge.reward?.xp} XP</span>
+                      <span className="text-gray-500"><Coins className="inline-block h-4 w-4 mr-1" />{challenge.reward?.coins} coins</span>
                     </div>
                     <button onClick={() => handleJoin(challenge._id)} className="rounded-full bg-red-600 px-4 py-1.5 text-xs font-bold text-white hover:bg-red-700 transition">Join</button>
                   </div>
@@ -108,7 +115,7 @@ export default function ChallengesPage() {
               ))
             ) : (
               <div className="col-span-2">
-                <EmptyState icon="🎯" title="No active challenges" description="New challenges appear here regularly. Check back soon!" />
+                <EmptyState icon={<Target className="h-12 w-12 text-gray-400" />} title="No active challenges" description="New challenges appear here regularly. Check back soon!" />
               </div>
             )}
           </div>
@@ -134,7 +141,7 @@ export default function ChallengesPage() {
                         </div>
                       </div>
                       {entry.completed ? (
-                        <span className="rounded-full bg-green-100 px-3 py-1 text-xs font-bold text-green-700">✅ Completed</span>
+                        <span className="rounded-full bg-green-100 px-3 py-1 text-xs font-bold text-green-700"><Check className="inline-block h-3 w-3 mr-1" />Completed</span>
                       ) : (
                         <span className="rounded-full bg-blue-100 px-3 py-1 text-xs font-bold text-blue-700">In Progress</span>
                       )}
@@ -149,15 +156,15 @@ export default function ChallengesPage() {
                       </div>
                     </div>
                     <div className="mt-3 flex gap-3 text-xs">
-                      <span className="text-yellow-600">🏆 {c.reward?.xp} XP</span>
-                      <span className="text-gray-500">💰 {c.reward?.coins} coins</span>
+                      <span className="text-yellow-600"><Trophy className="inline-block h-3 w-3 mr-1" />{c.reward?.xp} XP</span>
+                      <span className="text-gray-500"><Coins className="inline-block h-3 w-3 mr-1" />{c.reward?.coins} coins</span>
                     </div>
                   </div>
                 );
               })
             ) : (
               <div className="rounded-2xl border border-gray-100 bg-white p-12 text-center text-gray-400">
-                <EmptyState icon="🎯" title="No challenges joined yet" description="Browse active challenges and join one to start earning rewards." actionLabel="Browse Challenges" actionHref="#" onAction={() => setActiveTab("all")} />
+                <EmptyState icon={<Target className="h-12 w-12 text-gray-400" />} title="No challenges joined yet" description="Browse active challenges and join one to start earning rewards." actionLabel="Browse Challenges" actionHref="#" onAction={() => setActiveTab("all")} />
               </div>
             )}
           </div>
@@ -194,7 +201,7 @@ export default function ChallengesPage() {
               </div>
             ) : (
               <div className="rounded-2xl border border-gray-100 bg-white p-12 text-center text-gray-400">
-                <EmptyState icon="📜" title="No challenge history yet" description="Complete challenges to build your history." actionLabel="Browse Challenges" actionHref="#" onAction={() => setActiveTab("all")} />
+                <EmptyState icon={<FileText className="h-12 w-12 text-gray-400" />} title="No challenge history yet" description="Complete challenges to build your history." actionLabel="Browse Challenges" actionHref="#" onAction={() => setActiveTab("all")} />
               </div>
             )}
           </div>

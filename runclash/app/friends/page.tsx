@@ -6,6 +6,7 @@ import { getFriends, getFriendRequests, getSentRequests, sendFriendRequest, resp
 import { searchUsers } from "@/lib/api/users";
 import { useOnlineFriends } from "@/lib/hooks/useSocket";
 import EmptyState from "@/app/_components/EmptyState";
+import { Users, UserPlus, UserCheck, MessageCircle, BarChart3, X, Mail, Activity, Flag, MapPin, Trophy, Bell, AlertCircle } from "lucide-react";
 
 export default function FriendsPage() {
   const [friends, setFriends] = useState<any[]>([]);
@@ -80,7 +81,7 @@ export default function FriendsPage() {
       <div className="mx-auto max-w-5xl">
         <div className="mb-6 flex items-center justify-between animate-fade-in-up">
           <div>
-            <h1 className="text-3xl font-extrabold tracking-tight text-gray-950">👥 Friends</h1>
+            <h1 className="text-3xl font-extrabold tracking-tight text-gray-950"><Users className="inline-block h-8 w-8 text-red-500 mr-2" />Friends</h1>
             <p className="mt-2 text-gray-600">Connect with runners, compare stats, and compete.</p>
           </div>
           <Link href="/dashboard" className="text-sm font-semibold text-red-600 underline-offset-4 hover:underline">Back to dashboard</Link>
@@ -109,8 +110,8 @@ export default function FriendsPage() {
             {comparison && (
               <div className="mb-6 rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-lg font-bold text-gray-900">📊 Stats Comparison</h3>
-                  <button onClick={() => setComparison(null)} className="text-gray-400 hover:text-gray-600">✕</button>
+                  <h3 className="text-lg font-bold text-gray-900"><BarChart3 className="inline-block h-5 w-5 mr-2" />Stats Comparison</h3>
+                  <button onClick={() => setComparison(null)} className="text-gray-400 hover:text-gray-600"><X className="h-4 w-4" /></button>
                 </div>
                 <div className="grid gap-4 sm:grid-cols-3">
                   {[
@@ -158,7 +159,7 @@ export default function FriendsPage() {
                   ))}
                 </div>
               ) : (
-                <EmptyState icon="👥" title="No friends yet" description="Find runners and add them as friends to compare stats." actionLabel="Find Friends" actionHref="#search" />
+                <EmptyState icon={<Users className="h-12 w-12 text-gray-400" />} title="No friends yet" description="Find runners and add them as friends to compare stats." actionLabel="Find Friends" actionHref="#search" />
               )}
             </div>
 
@@ -203,7 +204,7 @@ export default function FriendsPage() {
                 ))}
               </div>
             ) : (
-              <EmptyState icon="📨" title="No pending requests" description="When someone sends you a friend request, it will show up here." />
+                <EmptyState icon={<Mail className="h-12 w-12 text-gray-400" />} title="No pending requests" description="When someone sends you a friend request, it will show up here." />
             )}
           </div>
         )}
@@ -258,7 +259,7 @@ export default function FriendsPage() {
                 friendActivity.map((activity: any) => (
                   <div key={activity._id} className="flex items-start gap-3 p-3 rounded-lg border border-gray-100 hover:bg-gray-50 transition">
                     <div className="flex h-10 w-10 items-center justify-center rounded-full bg-red-100 text-lg">
-                      {activity.type === "run_completed" ? "🏃" : activity.type === "territory_captured" ? "🏁" : activity.type === "achievement_unlocked" ? "🏅" : "📢"}
+                      {activity.type === "run_completed" ? <Footprints className="h-5 w-5 text-red-500" /> : activity.type === "territory_captured" ? <Flag className="h-5 w-5 text-blue-500" /> : activity.type === "achievement_unlocked" ? <Trophy className="h-5 w-5 text-yellow-500" /> : <Bell className="h-5 w-5 text-gray-500" />}
                     </div>
                     <div className="flex-1">
                       <p className="text-sm font-semibold text-gray-900">{activity.title}</p>
@@ -268,7 +269,7 @@ export default function FriendsPage() {
                   </div>
                 ))
               ) : (
-                <EmptyState icon="📢" title="No recent activity from friends" description="Add friends to see their runs and achievements here." actionLabel="Find Friends" actionHref="#search" />
+                <EmptyState icon={<Activity className="h-12 w-12 text-gray-400" />} title="No recent activity from friends" description="Add friends to see their runs and achievements here." actionLabel="Find Friends" actionHref="#search" />
               )}
             </div>
           </div>

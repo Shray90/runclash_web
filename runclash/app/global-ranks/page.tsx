@@ -6,6 +6,7 @@ import { getLeaderboard } from "@/lib/api/leaderboard";
 import { useAuth } from "@/lib/contexts/AuthContext";
 import { useLeaderboardUpdates } from "@/lib/hooks/useSocket";
 import EmptyState from "@/app/_components/EmptyState";
+import { Trophy, Flag, MapPin, Search, ChevronLeft, ChevronRight, User, Medal } from "lucide-react";
 
 type SortBy = "distance" | "points" | "territories" | "runs" | "level";
 type Period = "daily" | "weekly" | "monthly" | "all";
@@ -63,7 +64,7 @@ export default function GlobalRanksPage() {
       <div className="mx-auto max-w-6xl">
         <div className="mb-6 flex items-center justify-between animate-fade-in-up">
           <div>
-            <h1 className="text-3xl font-extrabold tracking-tight text-gray-950">🏆 Global Leaderboard</h1>
+            <h1 className="text-3xl font-extrabold tracking-tight text-gray-950"><Trophy className="inline-block h-8 w-8 text-yellow-500 mr-2" />Global Leaderboard</h1>
             <p className="mt-2 text-gray-600">Top athletes ranked by distance, points, and territories captured.</p>
           </div>
           <Link href="/dashboard" className="text-sm font-semibold text-red-600 underline-offset-4 hover:underline">
@@ -146,7 +147,7 @@ export default function GlobalRanksPage() {
                     idx === 1 ? "bg-gray-400 text-white" :
                     "bg-orange-500 text-white"
                   }`}>
-                    {idx === 0 ? "👑" : idx === 1 ? "🥈" : "🥉"}
+                      {idx === 0 ? <Medal className="h-8 w-8 text-yellow-500" /> : idx === 1 ? <Medal className="h-8 w-8 text-gray-400" /> : <Medal className="h-8 w-8 text-orange-500" />}
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-lg font-bold text-gray-900 truncate">
@@ -161,7 +162,7 @@ export default function GlobalRanksPage() {
                   </div>
                   <div className="text-right">
                     <p className="text-2xl font-black text-gray-900">{formatDistance(entry.totalDistance)}</p>
-                    <p className="text-xs text-gray-500">🏁 {entry.territoriesCaptured}</p>
+                    <p className="text-xs text-gray-500"><Flag className="inline-block h-3 w-3 mr-1" />{entry.territoriesCaptured}</p>
                   </div>
                 </div>
               </div>
@@ -209,7 +210,11 @@ export default function GlobalRanksPage() {
                             : "bg-orange-100 text-orange-700"
                           : "bg-gray-50 text-gray-500"
                       }`}>
-                        {entry.rank <= 3 ? ["🥇", "🥈", "🥉"][entry.rank - 1] : `#${entry.rank}`}
+                        {entry.rank <= 3
+                          ? entry.rank === 1 ? <Medal className="h-6 w-6 text-yellow-500" />
+                            : entry.rank === 2 ? <Medal className="h-6 w-6 text-gray-400" />
+                            : <Medal className="h-6 w-6 text-orange-500" />
+                          : `#${entry.rank}`}
                       </span>
                     </td>
                     <td className="p-4">
@@ -246,7 +251,7 @@ export default function GlobalRanksPage() {
               ) : (
                 <tr>
                   <td colSpan={7} className="p-0">
-                    <EmptyState icon="🏆" title="No runners found" description="Be the first to claim a spot on the leaderboard." actionLabel="Start Running" actionHref="/runtracker" />
+                    <EmptyState icon={<Trophy className="h-12 w-12 text-gray-400" />} title="No runners found" description="Be the first to claim a spot on the leaderboard." actionLabel="Start Running" actionHref="/runtracker" />
                   </td>
                 </tr>
               )}

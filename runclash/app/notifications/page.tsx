@@ -4,11 +4,21 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { getNotifications, markAsRead, markAllAsRead, deleteNotification, getUnreadCount } from "@/lib/api/notifications";
 import { useNotifications } from "@/lib/hooks/useSocket";
+import { Bell, Users, Check, Flag, Trophy, Target, Star, TrendingUp, Medal, Award, Footprints, AlertCircle, Mail, X, MapPin } from "lucide-react";
 
-const typeIcons: Record<string, string> = {
-  friend_request: "👥", friend_accepted: "✅", territory_captured: "🏁", territory_lost: "💔",
-  challenge_completed: "🏆", challenge_received: "🎯", level_up: "⭐", leaderboard_promotion: "📈",
-  achievement_unlocked: "🏅", badge_earned: "🎖️", run_completed: "🏃", system: "🔔",
+const typeIcons: Record<string, React.ReactNode> = {
+  friend_request: <Users className="h-5 w-5 text-blue-500" />,
+  friend_accepted: <Check className="h-5 w-5 text-green-500" />,
+  territory_captured: <Flag className="h-5 w-5 text-red-500" />,
+  territory_lost: <MapPin className="h-5 w-5 text-red-500" />,
+  challenge_completed: <Trophy className="h-5 w-5 text-yellow-500" />,
+  challenge_received: <Target className="h-5 w-5 text-red-500" />,
+  level_up: <Star className="h-5 w-5 text-yellow-500" />,
+  leaderboard_promotion: <TrendingUp className="h-5 w-5 text-green-500" />,
+  achievement_unlocked: <Medal className="h-5 w-5 text-purple-500" />,
+  badge_earned: <Award className="h-5 w-5 text-yellow-500" />,
+  run_completed: <Footprints className="h-5 w-5 text-red-500" />,
+  system: <Bell className="h-5 w-5 text-gray-500" />,
 };
 
 export default function NotificationsPage() {
@@ -72,7 +82,7 @@ export default function NotificationsPage() {
       <div className="mx-auto max-w-3xl">
         <div className="mb-6 flex items-center justify-between animate-fade-in-up">
           <div>
-            <h1 className="text-3xl font-extrabold tracking-tight text-gray-950">🔔 Notifications</h1>
+            <h1 className="text-3xl font-extrabold tracking-tight text-gray-950"><Bell className="inline-block h-8 w-8 text-red-500 mr-2" />Notifications</h1>
             <p className="mt-2 text-gray-600">Stay updated on your activity and friends.</p>
           </div>
           <Link href="/dashboard" className="text-sm font-semibold text-red-600 underline-offset-4 hover:underline">Back to dashboard</Link>
@@ -101,7 +111,7 @@ export default function NotificationsPage() {
                 }`}
                 onClick={() => !notif.read && handleMarkRead(notif._id)}
               >
-                <span className="text-2xl flex-shrink-0">{typeIcons[notif.type] || "🔔"}</span>
+                <span className="text-2xl flex-shrink-0">{typeIcons[notif.type] || <Bell className="h-5 w-5 text-gray-400" />}</span>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-start justify-between">
                     <div>
@@ -110,7 +120,7 @@ export default function NotificationsPage() {
                     </div>
                     <div className="flex items-center gap-2 ml-4">
                       {!notif.read && <span className="h-2 w-2 rounded-full bg-red-500 flex-shrink-0" />}
-                      <button onClick={(e) => { e.stopPropagation(); handleDelete(notif._id); }} className="text-gray-300 hover:text-red-500 transition text-sm flex-shrink-0">✕</button>
+                      <button onClick={(e) => { e.stopPropagation(); handleDelete(notif._id); }} className="text-gray-300 hover:text-red-500 transition text-sm flex-shrink-0"><X className="h-4 w-4" /></button>
                     </div>
                   </div>
                   <p className="text-[10px] text-gray-400 mt-1">{new Date(notif.createdAt).toLocaleString()}</p>
@@ -119,8 +129,7 @@ export default function NotificationsPage() {
             ))
           ) : (
             <div className="rounded-2xl border border-gray-100 bg-white p-12 text-center text-gray-400">
-              <div className="text-5xl mb-4">🔕</div>
-              <p>No notifications yet</p>
+                <EmptyState icon={<Bell className="h-12 w-12 text-gray-400" />} title="No notifications yet" description="Activity alerts will appear here." actionLabel="Explore" actionHref="/territories" />
             </div>
           )}
         </div>
