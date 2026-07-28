@@ -4,13 +4,14 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import { useRunTracker } from "@/lib/hooks/useRunTracker";
+import { MapPin, Play, Pause, Square, Clock, Map } from "lucide-react";
 
 const MapComponent = dynamic(() => import("./_components/MapComponent"), {
   ssr: false,
   loading: () => (
     <div className="h-96 rounded-2xl bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center">
       <div className="text-center">
-        <div className="text-5xl mb-3">🗺️</div>
+        <div className="text-5xl mb-3"><Map className="h-12 w-12 text-gray-400" /></div>
         <p className="text-gray-400 text-sm font-medium">Loading map...</p>
       </div>
     </div>
