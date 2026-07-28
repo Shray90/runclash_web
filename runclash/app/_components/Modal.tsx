@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import { X } from "lucide-react";
 
 export default function Modal({ open, onClose, title, children }: any) {
   // HACK: delay mount to allow exit animation before removing from DOM
@@ -48,7 +49,7 @@ export default function Modal({ open, onClose, title, children }: any) {
             className="flex h-8 w-8 items-center justify-center rounded-full text-sm text-gray-400 transition hover:bg-gray-100 hover:text-gray-700"
             aria-label="Close modal"
           >
-            ✕
+            <X className="h-4 w-4" />
           </button>
         </div>
         <div>{children}</div>

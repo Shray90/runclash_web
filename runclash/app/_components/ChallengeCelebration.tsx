@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { Target, Zap, Coins } from "lucide-react";
 import Modal from "@/app/_components/Modal";
 
 export default function ChallengeCelebration({ onClose }: { onClose?: () => void }) {
@@ -37,17 +38,17 @@ export default function ChallengeCelebration({ onClose }: { onClose?: () => void
         <Modal open={isVisible} onClose={handleClose} title="Challenge Completed!">
             <div className="text-center py-4">
                 <div className="mx-auto mb-4 flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-br from-green-100 to-emerald-200 border-2 border-green-300">
-                    <span className="text-5xl">🎯</span>
+                    <Target className="h-12 w-12 text-red-500" />
                 </div>
                 <h3 className="text-2xl font-black text-gray-900 mb-1">{challenge.title}</h3>
                 <p className="text-sm text-gray-500 mb-4">You crushed this challenge!</p>
                 <div className="flex items-center justify-center gap-6 mb-6">
                     <div className="flex items-center gap-2">
-                        <span className="text-lg">⚡</span>
+                    <Zap className="h-5 w-5 text-yellow-500" />
                         <span className="font-bold text-gray-900">+{challenge.xpReward} XP</span>
                     </div>
                     <div className="flex items-center gap-2">
-                        <span className="text-lg">🪙</span>
+                        <Coins className="h-5 w-5 text-yellow-600" />
                         <span className="font-bold text-gray-900">+{challenge.coinReward} Coins</span>
                     </div>
                 </div>

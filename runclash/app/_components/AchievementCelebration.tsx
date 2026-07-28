@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { Medal, Zap, Coins } from "lucide-react";
 import Modal from "@/app/_components/Modal";
 
 export default function AchievementCelebration({ onClose }: { onClose?: () => void }) {
@@ -51,7 +52,7 @@ export default function AchievementCelebration({ onClose }: { onClose?: () => vo
         <Modal open={isVisible} onClose={handleClose} title="Achievement Unlocked!">
             <div className="text-center py-4">
                 <div className={`mx-auto mb-4 flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-br ${rarityColors[achievement.rarity] || rarityColors.common} border-2 animate-bounce`}>
-                    <span className="text-5xl">{achievement.icon || "🏅"}</span>
+                    <Medal className="h-12 w-12 text-yellow-500" />
                 </div>
                 <h3 className="text-2xl font-black text-gray-900 mb-1">{achievement.badgeName}</h3>
                 <span className={`inline-block rounded-full px-3 py-1 text-xs font-bold uppercase mb-4 ${rarityTextColors[achievement.rarity] || rarityTextColors.common}`}>
@@ -59,11 +60,11 @@ export default function AchievementCelebration({ onClose }: { onClose?: () => vo
                 </span>
                 <div className="flex items-center justify-center gap-6 mb-6">
                     <div className="flex items-center gap-2">
-                        <span className="text-lg">⚡</span>
+                    <Zap className="h-5 w-5 text-yellow-500" />
                         <span className="font-bold text-gray-900">+{achievement.xpReward} XP</span>
                     </div>
                     <div className="flex items-center gap-2">
-                        <span className="text-lg">🪙</span>
+                        <Coins className="h-5 w-5 text-yellow-600" />
                         <span className="font-bold text-gray-900">+{achievement.coinReward} Coins</span>
                     </div>
                 </div>
