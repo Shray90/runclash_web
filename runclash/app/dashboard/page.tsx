@@ -13,21 +13,25 @@ import {
   BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip,
   ResponsiveContainer, AreaChart, Area,
 } from "recharts";
+import {
+  LayoutDashboard, Footprints, Trophy, Map, User, Users, Target, Bell, Settings,
+  MapPin, Flag, ChevronRight, ChevronLeft,
+} from "lucide-react";
 import AchievementCelebration from "@/app/_components/AchievementCelebration";
 import ChallengeCelebration from "@/app/_components/ChallengeCelebration";
 import EmptyState from "@/app/_components/EmptyState";
 import { handleLogout } from "@/lib/actions/auth-action";
 
 const navItems = [
-  { href: "/dashboard", label: "Dashboard", emoji: "\u{1F4CA}" },
-  { href: "/runtracker", label: "Run Tracker", emoji: "\u{1F3C3}" },
-  { href: "/global-ranks", label: "Global Ranks", emoji: "\u{1F3C6}" },
-  { href: "/territories", label: "Territories", emoji: "\u{1F5FA}\uFE0F" },
-  { href: "/profile", label: "Profile", emoji: "\u{1F464}" },
-  { href: "/friends", label: "Friends", emoji: "\u{1F465}" },
-  { href: "/challenges", label: "Challenges", emoji: "\u{1F3AF}" },
-  { href: "/notifications", label: "Notifications", emoji: "\u{1F514}" },
-  { href: "/setting", label: "Settings", emoji: "⚙️" },
+  { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/runtracker", label: "Run Tracker", icon: Footprints },
+  { href: "/global-ranks", label: "Global Ranks", icon: Trophy },
+  { href: "/territories", label: "Territories", icon: Map },
+  { href: "/profile", label: "Profile", icon: User },
+  { href: "/friends", label: "Friends", icon: Users },
+  { href: "/challenges", label: "Challenges", icon: Target },
+  { href: "/notifications", label: "Notifications", icon: Bell },
+  { href: "/setting", label: "Settings", icon: Settings },
 ];
 
 export default function DashboardPage() {
@@ -147,7 +151,7 @@ export default function DashboardPage() {
           <nav className="space-y-1">
             {navItems.map((item) => (
               <Link key={item.href} href={item.href} className={`flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-semibold transition-all hover:bg-red-50 hover:text-red-700 ${item.href === "/dashboard" ? "bg-red-50 text-red-700" : "text-gray-700"}`}>
-                <span>{item.emoji}</span>
+                <item.icon className="h-5 w-5" />
                 {item.label}
                 {item.label === "Notifications" && unreadCount > 0 && (
                   <span className="ml-auto flex h-5 min-w-5 items-center justify-center rounded-full bg-red-500 px-1.5 text-[10px] font-bold text-white">{unreadCount}</span>
@@ -163,7 +167,7 @@ export default function DashboardPage() {
         <section className="px-4 py-10 lg:px-10 space-y-8">
           <div className="animate-fade-in-up">
             <p className="text-xs font-semibold uppercase tracking-widest text-red-600">Dashboard</p>
-            <h1 className="mt-2 text-3xl font-extrabold tracking-tight text-gray-950">Welcome back{user?.firstName ? `, ${user.firstName}` : ""} 🏃</h1>
+            <h1 className="mt-2 text-3xl font-extrabold tracking-tight text-gray-950">Welcome back{user?.firstName ? `, ${user.firstName}` : ""} <Footprints className="inline-block h-8 w-8 text-red-500" /></h1>
             <p className="mt-2 text-gray-600">Your performance, stats and next missions are all here.</p>
           </div>
 
@@ -340,7 +344,7 @@ export default function DashboardPage() {
                   ))}
                 </div>
               ) : (
-                <EmptyState icon="🏆" title="No rankings yet" description="Be the first to appear on the leaderboard." actionLabel="Go for a run" actionHref="/runtracker" />
+                <EmptyState icon={<Trophy className="h-12 w-12 text-gray-400" />} title="No rankings yet" description="Be the first to appear on the leaderboard." actionLabel="Go for a run" actionHref="/runtracker" />
               )}
             </div>
 
@@ -365,7 +369,7 @@ export default function DashboardPage() {
                   ))}
                 </div>
               ) : (
-                <EmptyState icon="🏃" title="No runs yet" description="Start your first run and capture your first territory!" actionLabel="Start Running" actionHref="/runtracker" />
+                <EmptyState icon={<Footprints className="h-12 w-12 text-gray-400" />} title="No runs yet" description="Start your first run and capture your first territory!" actionLabel="Start Running" actionHref="/runtracker" />
               )}
             </div>
 
@@ -379,7 +383,7 @@ export default function DashboardPage() {
                   {stats.recentCaptures.map((capture: any) => (
                     <div key={capture._id} className="flex items-center gap-3 rounded-lg p-3 transition hover:bg-gray-50">
                       <div className="flex h-10 w-10 items-center justify-center rounded-full bg-red-100 text-lg">
-                        {capture.icon || "🏁"}
+                        <Flag className="h-6 w-6 text-red-500" />
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="font-semibold text-gray-900 truncate">{capture.name || "Territory"}</p>
@@ -390,7 +394,7 @@ export default function DashboardPage() {
                   ))}
                 </div>
               ) : (
-                <EmptyState icon="🏁" title="No captures yet" description="Run through territories to start capturing." actionLabel="Find Territories" actionHref="/territories" />
+                <EmptyState icon={<Flag className="h-12 w-12 text-gray-400" />} title="No captures yet" description="Run through territories to start capturing." actionLabel="Find Territories" actionHref="/territories" />
               )}
             </div>
           </div>
@@ -406,7 +410,7 @@ export default function DashboardPage() {
                   {ownedTerritories.slice(0, 5).map((territory: any) => (
                     <div key={territory._id} className="flex items-center gap-3 rounded-lg p-3 transition hover:bg-gray-50">
                       <div className="flex h-10 w-10 items-center justify-center rounded-full bg-red-100 text-lg">
-                        {territory.icon || "🏁"}
+                        <Flag className="h-5 w-5 text-red-500" />
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="font-semibold text-gray-900 truncate">{territory.name}</p>
@@ -419,7 +423,7 @@ export default function DashboardPage() {
                   ))}
                 </div>
               ) : (
-                <EmptyState icon="🏁" title="No territories owned yet" description="Start capturing to build your empire." actionLabel="Go to Territories" actionHref="/territories" />
+                <EmptyState icon={<Flag className="h-12 w-12 text-gray-400" />} title="No territories owned yet" description="Start capturing to build your empire." actionLabel="Go to Territories" actionHref="/territories" />
               )}
             </div>
 
@@ -433,7 +437,10 @@ export default function DashboardPage() {
                   {stats.recentNotifications.map((notification: any) => (
                     <div key={notification._id} className={`flex items-start gap-3 rounded-lg p-3 transition hover:bg-gray-50 ${!notification.read ? "bg-red-50" : ""}`}>
                       <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 text-sm">
-                        {notification.type === "territory_captured" ? "🏁" : notification.type === "achievement" ? "🏆" : notification.type === "friend_request" ? "👋" : "📢"}
+                        {notification.type === "territory_captured" ? <Flag className="h-5 w-5 text-red-500" /> :
+                       notification.type === "achievement" ? <Trophy className="h-5 w-5 text-yellow-500" /> :
+                       notification.type === "friend_request" ? <Users className="h-5 w-5 text-blue-500" /> :
+                       <Bell className="h-5 w-5 text-gray-500" />}
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="font-semibold text-gray-900 text-sm truncate">{notification.title}</p>
@@ -444,7 +451,7 @@ export default function DashboardPage() {
                   ))}
                 </div>
               ) : (
-                <EmptyState icon="🔔" title="No notifications yet" description="Activity alerts will appear here." actionLabel="Explore" actionHref="/territories" />
+                <EmptyState icon={<Bell className="h-12 w-12 text-gray-400" />} title="No notifications yet" description="Activity alerts will appear here." actionLabel="Explore" actionHref="/territories" />
               )}
             </div>
           </div>
