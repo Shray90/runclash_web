@@ -1,6 +1,7 @@
 import { handleGetAllUsers } from "@/lib/actions/admin/user-action";
 import UserTable from "@/app/admin/users/_components/UserTable";
 import Link from "next/link";
+import { Users } from "lucide-react";
 
 export default async function UsersPage({ searchParams }: { searchParams: any }) {
   const page = parseInt(searchParams?.page || "1", 10);
@@ -15,7 +16,7 @@ export default async function UsersPage({ searchParams }: { searchParams: any })
     <div className="py-12">
       <div className="mb-6 flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-extrabold tracking-tight text-gray-950">👥 Admin Users</h1>
+          <h1 className="text-3xl font-extrabold tracking-tight text-gray-950">Users</h1>
           <p className="mt-2 text-gray-600">Manage and monitor users.</p>
         </div>
         <div className="flex gap-3">

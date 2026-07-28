@@ -8,6 +8,7 @@ import {
   deleteChallenge as apiDeleteChallenge,
 } from "@/lib/api/challenges";
 import Link from "next/link";
+import { Target } from "lucide-react";
 
 export default function AdminChallengesPage() {
   const [challenges, setChallenges] = useState<any[]>([]);
@@ -97,7 +98,7 @@ export default function AdminChallengesPage() {
       <div className="mx-auto max-w-6xl">
         <div className="mb-6 flex items-center justify-between animate-fade-in-up">
           <div>
-            <h1 className="text-3xl font-extrabold tracking-tight text-gray-950">🎯 Admin Challenges</h1>
+            <h1 className="text-3xl font-extrabold tracking-tight text-gray-950">Admin Challenges</h1>
             <p className="mt-2 text-gray-600">Create and manage challenges.</p>
           </div>
           <div className="flex gap-3">

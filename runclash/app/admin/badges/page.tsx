@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { getAllBadges, createBadge as apiCreateBadge } from "@/lib/api/achievements";
+import { BadgeCheck } from "lucide-react";
 
 export default function AdminBadgesPage() {
   const [badges, setBadges] = useState<any[]>([]);
@@ -10,7 +11,7 @@ export default function AdminBadgesPage() {
   const [form, setForm] = useState({
     name: "",
     description: "",
-    icon: "🏅",
+    icon: "badge-check",
     criteriaType: "distance",
     criteriaValue: "",
     rarity: "common",
@@ -48,7 +49,7 @@ export default function AdminBadgesPage() {
         coinReward: Number(form.coinReward),
       });
       setShowForm(false);
-      setForm({ name: "", description: "", icon: "🏅", criteriaType: "distance", criteriaValue: "", rarity: "common", color: "#6b7280", xpReward: "50", coinReward: "25" });
+      setForm({ name: "", description: "", icon: "badge-check", criteriaType: "distance", criteriaValue: "", rarity: "common", color: "#6b7280", xpReward: "50", coinReward: "25" });
       fetchBadges();
     } catch (err: any) {
       alert(err.message);
@@ -67,7 +68,7 @@ export default function AdminBadgesPage() {
       <div className="mx-auto max-w-6xl">
         <div className="mb-6 flex items-center justify-between animate-fade-in-up">
           <div>
-            <h1 className="text-3xl font-extrabold tracking-tight text-gray-950">🎖️ Admin Badges</h1>
+            <h1 className="text-3xl font-extrabold tracking-tight text-gray-950">Admin Badges</h1>
             <p className="mt-2 text-gray-600">Manage badges and achievements.</p>
           </div>
           <button onClick={() => setShowForm(true)} className="rounded-full bg-red-600 px-5 py-2.5 text-sm font-bold text-white hover:bg-red-700 transition">+ New Badge</button>
@@ -141,7 +142,7 @@ export default function AdminBadgesPage() {
               {badges.map((badge: any) => (
                 <div key={badge._id} className="rounded-xl border border-gray-100 p-4 hover:shadow-md transition">
                   <div className="flex items-center gap-3 mb-2">
-                    <span className="text-3xl">{badge.icon || "🏅"}</span>
+                    <span className="text-3xl"><BadgeCheck className="h-8 w-8 text-gray-400" /></span>
                     <div>
                       <p className="font-bold text-gray-900">{badge.name}</p>
                       <span className={`inline-block rounded-full px-2 py-0.5 text-[10px] font-bold uppercase ${rarityColor[badge.rarity] || rarityColor.common}`}>{badge.rarity}</span>
